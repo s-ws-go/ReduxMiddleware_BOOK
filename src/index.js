@@ -4,14 +4,19 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import App from "./App";
 // import loggerMiddleware from "./lib/middleware";
-import rootReducer from "./modules";
+import rootReducer, { rootSaga } from "./modules";
 import reduxLogger from "redux-logger";
 import reduxChunk from "redux-thunk";
+import "regenerator-runtime/runtime";
+import createSagaMiddleware from "redux-saga";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(reduxLogger, reduxChunk)
+  applyMiddleware(reduxLogger, reduxChunk, sagaMiddleware)
 );
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
