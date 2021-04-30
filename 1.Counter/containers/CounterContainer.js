@@ -18,3 +18,4 @@ export default connect((state) => ({ number: state.counter }), {
   increaseAsync,
   decreaseAsync,
 })(CounterContainer);
+// connect 로 연결
